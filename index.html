@@ -207,6 +207,8 @@
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+              loading="lazy"
             ></iframe>
           </div>
 
@@ -218,6 +220,8 @@
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+              loading="lazy"
             ></iframe>
           </div>
         </div>
@@ -322,6 +326,21 @@
         document.getElementById("contactForm").style.display = "none";
         document.getElementById("successMessage").style.display = "block";
       });
+    </script>
+    <script>
+      // Header compacto al bajar y desplazamiento de los enlaces para que el título no quede tapado.
+      (function () {
+        const header = document.querySelector("header");
+        const actualizarAlto = () =>
+          document.documentElement.style.setProperty("--alto-header", header.offsetHeight + "px");
+        const alScroll = () => {
+          header.classList.toggle("compacto", window.scrollY > 60);
+        };
+        new ResizeObserver(actualizarAlto).observe(header);
+        window.addEventListener("scroll", alScroll, { passive: true });
+        alScroll();
+        actualizarAlto();
+      })();
     </script>
   </body>
 </html>

@@ -1,6 +1,8 @@
 /* Estilos generales de la pagina*/
 html {
     scroll-behavior: smooth;
+    /* Deja lugar para el header fijo al saltar a una sección */
+    scroll-padding-top: calc(var(--alto-header, 140px) + 16px);
     font-size: 17px;
 }
 
@@ -21,7 +23,19 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: padding 0.3s ease;
 }
+
+/* Header compacto al hacer scroll: logo más chico para no tapar el contenido */
+header.compacto {
+  padding: 6px 0;
+}
+header.compacto img {
+  width: 150px;
+  padding: 0;
+  margin: 0 auto;
+}
+
 
 /* LOGO */
 header img {
@@ -305,8 +319,10 @@ h2 {
 }
 
 iframe {
+  display: block;
   width: 100%;
-  height: 260px;
+  height: auto;
+  aspect-ratio: 16 / 9;
   border-radius: 10px;
   border: none;
 }
@@ -578,4 +594,50 @@ input:focus, select:focus, textarea:focus {
   header img {
     max-width: 200px;
   }
+}
+
+
+header img {
+  transition: width 0.3s ease, padding 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== Ajustes de header en celulares ===== */
+@media (max-width: 768px) {
+  /* El menú pasa a una sola fila deslizable para que el header no ocupe media pantalla */
+  header nav ul {
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    justify-content: flex-start !important;
+    overflow-x: auto;
+    gap: 6px !important;
+    padding: 0 12px !important;
+    scrollbar-width: none;
+  }
+  header nav ul::-webkit-scrollbar { display: none; }
+  header nav ul li { flex: none; }
+  header nav ul li a { white-space: nowrap; padding: 8px 10px; }
+  header.compacto img { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  header, header img { transition: none; }
+}
+
+/* El formulario no se sale de la pantalla en celulares */
+#Formulario form,
+#Formulario input,
+#Formulario select,
+#Formulario textarea {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+@media (max-width: 480px) {
+  #Formulario form { padding: 24px 18px; }
+  #Formulario textarea { width: 100%; }
+}
+
+/* Las listas de capítulos quedan centradas (sin la sangría por defecto de <ul>) */
+#Capitulos-Destacados ul {
+  padding-left: 0;
 }
